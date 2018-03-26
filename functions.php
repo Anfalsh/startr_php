@@ -1,10 +1,5 @@
 <?php
 
-	if ( ! defined( 'ABSPATH' ) ) {
-		exit;
-	}
-
-
 	function theme_script() {
 		if ( ! is_admin() ) {
 			wp_enqueue_script( 'theme_js', get_template_directory_uri() . '/dist/js/app.min.js' );
@@ -20,12 +15,4 @@
 
 
 
-
-
-
-
-
-
-
 ?>
-
