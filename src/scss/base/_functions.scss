@@ -1,0 +1,198 @@
+/* ---------------------------------------------------
+///////////////////// FONTSIZE ///////////////////////
+---------------------------------------------------- */
+
+@mixin fontsize($size) {
+	font-size: $size * 1px;
+	font-size: $size * 0.1rem;
+}
+
+/* ---------------------------------------------------
+///////////////////// FONT FACE ///////////////////////
+---------------------------------------------------- */
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: otf eot ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+	}
+}
+
+/* ---------------------------------------------------
+/////////////////////// FLEX /////////////////////////
+---------------------------------------------------- */
+
+@mixin flexbox($flex: flex, $justify: null, $alignitm: null, $flow: null, $dir: null){
+	display: $flex;
+	justify-content: $justify;
+	flex-flow: $flow;
+	align-items: $alignitm;
+	flex-direction: $dir;
+
+	// Display	
+	@if $flex != null {
+		@if $flex == flex{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flexbox;
+			
+		} @else if $flex == inline-flex{
+			display: -webkit-inline-box;
+			display: -webkit-inline-flex;
+			display: -moz-inline-flex;
+			display: -ms-inline-flexbox;
+			display: inline-flex;
+		}
+	}
+	
+	// Justify-content
+	@else if $justify != null{
+		@if $justify == flex-end {
+			-webkit-box-pack: end;
+			-ms-flex-pack: end;
+		} @else if $justify == space-between {
+			-webkit-box-pack: justify;
+			-ms-flex-pack: justify;
+		} @else if $justify == space-around {
+			-ms-flex-pack: distribute;
+		} @else{
+			-webkit-box-pack: $justify;
+			-ms-flex-pack: $justify;
+		}
+		-webkit-justify-content: $justify;
+		-moz-justify-content: $justify;
+		justify-content: $justify;
+	}
+	
+	// alignitm
+	@else if $alignitm != null{
+		@if $alignitm == flex-start {
+			-webkit-box-align: start;
+			-ms-flex-align: start;
+		} @else if $alignitm == flex-end {
+			-webkit-box-align: end;
+			-ms-flex-align: end;
+		} @else {
+			-webkit-box-align: $alignitm;
+			-ms-flex-align: $alignitm;
+		}
+		-webkit-alignitm: $alignitm;
+		-moz-alignitm: $alignitm;
+		alignitm: $alignitm;
+	}
+	
+	// Flex-flow
+	@else if $flow != null{
+		-webkit-flex-flow: $flow;
+		-moz-flex-flow: $flow;
+		-ms-flex-flow: $flow;
+		flex-flow: $flow;
+	}
+	
+	// Flex-direction
+	@else if $dir != null{
+		@if $dir == row-reverse {
+			-webkit-box-direction: reverse;
+			-webkit-box-orient: horizontal;
+		} @else if $dir == column {
+			-webkit-box-direction: normal;
+			-webkit-box-orient: vertical;
+		} @else if $dir == column-reverse {
+			-webkit-box-direction: reverse;
+			-webkit-box-orient: vertical;
+		} @else {
+			-webkit-box-direction: normal;
+			-webkit-box-orient: horizontal;
+		}
+		-webkit-flex-direction: $dir;
+		-moz-flex-direction: $dir;
+		-ms-flex-direction: $dir;
+		flex-direction: $dir;
+	}
+}
+
+/* ---------------------------------------------------
+////////////////// Width & Height ////////////////////
+---------------------------------------------------- */
+
+@mixin sizebase($width:100%, $height:100%){
+	width:$width;
+	height:$height;
+}
+
+/* ---------------------------------------------------
+///////////////////// ANIMATION ///////////////////////
+---------------------------------------------------- */
+
+@mixin keyframe($animName) {
+    @-webkit-keyframes #{$animName} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animName} {
+        @content;
+    }
+
+    @-o-keyframes #{$animName} {
+        @content;
+    }
+
+    @keyframes #{$animName} {
+        @content;
+    }
+}
+
+/* ---------------------------------------------------
+//////////////////// RESPONSIVE //////////////////////
+---------------------------------------------------- */
+
+@mixin breakpoint($class:null, $customSize:null, $format:portrait){
+	@if $class == xs {
+		@media screen and (max-width: 420px) { @content; }
+	}
+	
+	@else if $class == sm {
+		@media screen and (max-width: 768px) { @content; }
+	}
+
+	@else if $class == md {
+		@media screen and (max-width: 1072px) { @content; }
+	}
+	
+	@else if $class == lg{
+		@media screen and (max-width: 1366px) { @content; }
+	}
+	
+	@else if ($customSize){
+		@media screen and (max-width: $customSize) { @content; }
+	}
+	
+	@else if ($format == landscape, $customSize){
+		@media (orientation: landscape) and (max-height: 812px){ @content; }
+	}
+	
+	@else {
+		@warn "Breakpoint mixin supports: xs, sm, md, lg";
+	}
+}
