@@ -1,6 +1,6 @@
 
-var projectPath  = 'http://192.168.1.44/path/to/folder'; // Local project URL 
-var allPHPfiles = './**/*.php'; // Path to all PHP files.
+var projectURL  = 'http://192.168.1.44/path/to/folder'; // Local project URL 
+var phpFiles = './**/*.php'; // Path to all PHP files.
 
 var gulp         = require('gulp'), // Gulp of-course
     babel 		   = require("gulp-babel"),
@@ -20,7 +20,7 @@ gulp.task( 'browser-sync', function() {
     injectChanges: true,
   });
 
-  gulp.watch( pathToPHPFiles, browserSync.reload ); // Reload on PHP file changes.
+  gulp.watch( phpFiles, browserSync.reload ); // Reload on PHP file changes.
   gulp.watch('src/scss/**/*.scss', ['sass']);
   gulp.watch('src/js/**/*.js', ['js']);
   gulp.watch('./*.html').on('change', browserSync.reload);
@@ -56,7 +56,7 @@ gulp.task('images', function () {
 });
 
 gulp.task( 'watch', function () {
-  gulp.watch( pathToPHPFiles, browserSync.reload ); // Reload on PHP file changes.
+  gulp.watch( phpFiles, browserSync.reload ); // Reload on PHP file changes.
   gulp.watch('src/scss/**/*.scss', ['sass']);
   gulp.watch('src/js/**/*.js', ['js']);
   gulp.watch('./*.html').on('change', browserSync.reload);
