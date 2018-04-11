@@ -1,22 +1,14 @@
 <?php
 
-	/*
-	*
-	*	Theme Setup
-	*
-	*	1. Menu item in wp-admin
-	*	2. Support for post-thumbnail
-	*	3. Disable admin bar
-	*
-	*/
-
-	add_action( 'after_setup_theme', 'themeSetup' );
-	function themeSetup() {
-		add_theme_support( 'menus' );
-		add_theme_support( 'post-thumbnails' );
-		add_filter( 'show_admin_bar', '__return_false' );
+	function theme_script() {
+		if ( ! is_admin() ) {
+			wp_enqueue_script( 'theme_js', get_template_directory_uri() . '/dist/js/app.min.js' );
+			wp_enqueue_style( 'theme_css', get_template_directory_uri() . 'dist/css/main.min.css' );
+		}
 	}
-	
+
+	add_action( 'wp_enqueue_scripts', 'theme_script' );
+
 
 
 

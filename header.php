@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	
-	<title><?php bloginfo( 'name' ); echo ' | '; wp_title( '', true, 'right'); ?></title>
+	<title>Title</title>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -29,21 +29,11 @@
 	<link rel="icon" type="image/png" href="https://url/assets/site/favicon.png">
 	<link rel="apple-touch-icon" size="180x180" href="assets/site/apple-touch-icon.png">
 
-	<link rel="stylesheet" type="text/css" href="public/css/main.min.css"/>
-	<script src="public/js/app.min.js" defer></script>
-
-	<?php wp_head(); ?>
+	<link rel="stylesheet" type="text/css" href="dist/css/main.min.css"/>
+	<script src="dist/js/app.min.js" defer></script>
 </head>
-	<body <?php body_class(); ?>>
-		<main>
-			<header>
+	<body>
 
-			</header>
-
-			<nav class="">
-				<?php wp_nav_menu( array( 'menu_id' => '' )); ?>
-			</nav>
-
-
-	
+        <p>Pathmaker.fr</p>
+		
 	

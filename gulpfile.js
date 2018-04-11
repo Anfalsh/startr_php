@@ -1,10 +1,10 @@
 'use strict';
 
-let projectURL  = 'http://localhost/Github/wordpress'; // Local project URL 
-let phpFiles = './**/*.php'; // Path to all PHP files.
+var projectURL  = 'http://localhost/startr_php'; // Local project URL 
+var phpFiles = './**/*.php'; // Path to all PHP files.
 
-let gulp         = require('gulp'), // Gulp of-course
-    babel 		 = require("gulp-babel"),
+var gulp         = require('gulp'), // Gulp of-course
+    babel 		   = require("gulp-babel"),
     sass         = require('gulp-sass'), // Gulp pluign for Sass compilation.
     cssmin       = require('gulp-cssmin'),
     rename       = require('gulp-rename'), // Renames files E.g. style.css -> style.min.css
@@ -34,7 +34,7 @@ gulp.task('sass', function () {
 		.pipe(prefix('last 2 versions'))
 		.pipe(cssmin())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('public/css'))
+		.pipe(gulp.dest('dist/css'))
 		.pipe(browserSync.stream());
 });
 
@@ -45,7 +45,7 @@ gulp.task('js', function() {
 		.pipe(uglify())
 		.pipe(concat('app.js'))
 		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('public/js'))
+		.pipe(gulp.dest('dist/js'))
 		.pipe(browserSync.stream());
 });
 
@@ -53,7 +53,7 @@ gulp.task('js', function() {
 gulp.task('images', function () {
 	return gulp.src('src/img/**/*.+(png|jpg|gif|svg)')
 		.pipe(imagemin())
-		.pipe(gulp.dest('public/img'));
+		.pipe(gulp.dest('dist/img'));
 });
 
 gulp.task( 'watch', function () {
